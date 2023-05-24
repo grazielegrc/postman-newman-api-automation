@@ -26,4 +26,4 @@ newman run <your_postman_collection.json> -e <your_environmentfile.json>
 ```
 
 # Pipeline
-You can use the azure-pipelines.yml localized under .pipelines folder as example to create a Azure pipeline.
+You can use the azure-pipelines.yml localized under .pipelines folder as example to create an Azure pipeline.
