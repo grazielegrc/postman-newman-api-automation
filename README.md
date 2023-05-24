@@ -31,7 +31,7 @@ Install Newman report:
 ```bash
 npm i -g newman-reporter-htmlextra
 ```
-Execute the tests passing the argument (-r htmlextra) at the end of the run command:
+Execute the tests passing the argument (-r htmlextra) at the end of the run command, as below:
 ```bash
 newman run apiTests/viacep/viacep.postman_collection.json -e apiTests/viacep/viacep.postman_collection.json -r htmlextra
 ```
