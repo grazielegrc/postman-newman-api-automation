@@ -7,8 +7,8 @@ This project have been created in order to demonstrate API tests automation usin
 # How to run locally
 
 ## Setup
-- Clone or download the project
-- Import the project into VSCode or other IDE
+- Clone or download this project
+- Import this project into VSCode or other IDE
 
 ## Installation
 After installing Node.js, install Newman using the command:
@@ -18,13 +18,14 @@ npm install -g newman
 ```
 
 ## Run tests
-Go to project root and to run viacep api tests:
+Go to project root and execute the following commands:
+- To run viacep api tests:
 ```bash
-apiTests/viacep/viacep.postman_collection.json -e apiTests/viacep/viacep.postman_env.json -r cli
+newman run apiTests/viacep/viacep.postman_collection.json -e apiTests/viacep/viacep.postman_env.json -r cli
 ```
-To run zipcode api tests:
+- To run zipcode api tests:
 ```bash
-apiTests/zipcode/zipcode.postman_collection.json -e apiTests/zipcode/zipcode.postman_env.json -r cli
+newman run apiTests/zipcode/zipcode.postman_collection.json -e apiTests/zipcode/zipcode.postman_env.json -r cli
 ```
 The argument (-r cli) at the end is to print the test results in the terminal.
 
