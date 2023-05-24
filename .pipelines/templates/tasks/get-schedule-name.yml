@@ -1,0 +1,17 @@
+steps:
+- task: PowerShell@2
+  name: setvar
+  displayName: Get schedule name
+  inputs:
+    targetType: 'inline'
+    script: |
+      $url = "https://dev.azure.com/<organization>/<project>/_apis/build/builds/$(Build.BuildId)?api-version=6.1-preview.7"
+                Write-Host "URL: $url"
+                $pipeline = Invoke-RestMethod -Uri $url -Method Get -Headers @{
+                Authorization = "Basic <azure-token>"
+                }
+                Write-Host "Pipeline = $($pipeline | ConvertTo-Json -Depth 100)"
+                # Set variable
+                $scheduleNameValue = $pipeline.triggerInfo.scheduleName
+                Write-Host "##vso[task.setvariable variable=scheduleName;isOutput=true]$scheduleNameValue"                           
+    failOnStderr: true

@@ -1,0 +1,7 @@
+steps:
+- task: PublishTestResults@2
+  displayName: Publish Test Results
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: $(System.DefaultWorkingDirectory)/*.xml
+    searchFolder: '' 

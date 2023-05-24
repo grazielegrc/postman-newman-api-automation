@@ -1,0 +1,68 @@
+trigger: none
+
+pool:
+  vmImage: macos-latest
+
+schedules:
+  - cron: "00 11 * * *"
+    displayName: Via Cep API - Every day at 8AM UTC-3
+    branches:
+      include:
+        - develop
+    always: true
+
+  - cron: "00 11 * * *"
+    displayName: ZipCode API - Every day at 8AM UTC-3
+    branches:
+      include:
+        - develop
+    always: true
+
+variables:
+  scheduleName: ''
+
+jobs:
+- ${{ if eq(variables['Build.Reason'], 'Schedule') }}:
+  - job: Job_1
+    displayName: Get schedule name   
+    steps:
+    - template: templates/tasks/get-schedule-name.yml      
+  - job: Job_2
+    displayName: Run Via Cep scheduled tests
+    dependsOn: Job_1
+    condition: and(succeeded(), eq(dependencies.Job_1.outputs['setvar.scheduleName'], 'Via Cep API - Every day at 8AM UTC-3'))        
+    steps:    
+    - template: templates/tasks/install-newman.yml
+    - template: templates/tasks/install-newman-report.yml   
+    - template: schedulers/sdk/azure-iot-dps-hub.yml
+      parameters:
+        executionCommand: ${{ parameters.executionCommand }}      
+    - template: templates/tasks/publish-test-results.yml
+    - template: templates/tasks/upload-postman-report.yml        
+  - job: Job_3
+    displayName: Run Zip Code scheduled tests
+    dependsOn: Job_1
+    condition: and(succeeded(), eq(dependencies.Job_1.outputs['setvar.scheduleName'], 'ZipCode API - Every day at 8AM UTC-3'))        
+    steps:
+    - template: templates/tasks/install-newman.yml
+    - template: templates/tasks/install-newman-report.yml   
+    - template: schedulers/buildRun/schaerer-seb.yml
+      parameters:
+        executionCommand: ${{ parameters.executionCommand }}      
+    - template: templates/tasks/publish-test-results.yml
+    - template: templates/tasks/upload-postman-report.yml
+
+- ${{ if ne(variables['Build.Reason'], 'Schedule') }}: 
+  - job: Job_1
+    displayName: Automated API Testing
+    steps:   
+    - template: templates/tasks/api-tests.yml
+      parameters:
+        executionCommand: ${{ parameters.executionCommand }}     
+
+
+parameters:  
+  - name: executionCommand
+    displayName: "Command to run tests. Example: newman run collection.json -e environment.json"      
+    type: string
+    default: newman
