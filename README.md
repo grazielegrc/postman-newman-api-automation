@@ -5,24 +5,26 @@ This project have been created in order to demonstrate API tests automation usin
 - [Node.js](https://nodejs.org/en/)
 
 # How to run locally
+
+## Setup
+- Clone or download the project
+- Import the project into VSCode or other IDE
+
 ## Installation
-After installing node, install Newman using the command:
+After installing Node.js, install Newman using the command:
 
 ```bash
 npm install -g newman
 ```
 
 ## Run tests
-Navigate to project folder that contains the collection and environment files, then:
-- If you are not using the environment variable, run:
-
+Go to project root and to run viacep api tests:
 ```bash
-newman run <your_postman_collection.json> -r cli
+apiTests/viacep/viacep.postman_collection.json -e apiTests/viacep/viacep.postman_env.json -r cli
 ```
-
-- If you are using environment variable, run:
+To run zipcode api tests:
 ```bash
-newman run <your_postman_collection.json> -e <your_environmentfile.json> -r cli
+apiTests/zipcode/zipcode.postman_collection.json -e apiTests/zipcode/zipcode.postman_env.json -r cli
 ```
 The argument (-r cli) at the end is to print the test results in the terminal.
 
@@ -33,7 +35,7 @@ npm i -g newman-reporter-htmlextra
 ```
 Execute the tests passing the argument (-r htmlextra) at the end of the run command, as below:
 ```bash
-newman run apiTests/viacep/viacep.postman_collection.json -e apiTests/viacep/viacep.postman_collection.json -r htmlextra
+newman run apiTests/viacep/viacep.postman_collection.json -e apiTests/viacep/viacep.postman_env.json -r htmlextra
 ```
 A folder named newman containing the html report will be generated in the project root.
 
@@ -44,7 +46,7 @@ npm i -g newman-reporter-allure
 ```
 Execute the tests passing the argument (-r allure) at the end of the run command, as below:
 ```bash
-newman run apiTests/viacep/viacep.postman_collection.json -e apiTests/viacep/viacep.postman_collection.json -r allure
+newman run apiTests/viacep/viacep.postman_collection.json -e apiTests/viacep/viacep.postman_env.json -r allure
 ```
 A folder named allure-results containing some files will be generated in the project root. On project root, run allure-commandline to open the report:
 ```bash
