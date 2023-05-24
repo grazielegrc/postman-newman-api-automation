@@ -1,0 +1,7 @@
+steps:
+- task: Npm@1
+  displayName: Install Newman-run
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: install -g newman-run

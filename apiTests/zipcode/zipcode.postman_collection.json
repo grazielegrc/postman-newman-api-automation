@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "327212fe-130d-43da-b0fa-3c2dfdb85505",
+		"name": "ZipCode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8319339",
+		"_collection_link": "https://restless-shadow-1509.postman.co/workspace/My-tests~d2e1b626-f327-4401-9e8e-37af82bece23/collection/8319339-327212fe-130d-43da-b0fa-3c2dfdb85505?action=share&creator=8319339&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Validate status code",
+							"",
+							"pm.test(\"Validate status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Validate address",
+							"",
+							"const responseJson = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Post code is equal 90210\", () => {  ",
+							"pm.expect(responseJson['post code']).to.eql(\"90210\");  ",
+							"});",
+							"",
+							"pm.test(\"Validate country\", () => {  ",
+							"pm.expect(responseJson.country).to.eql(\"United States\");  ",
+							"});",
+							"",
+							"pm.test(\"Validate country abbreviation\", () => {  ",
+							"pm.expect(responseJson['country abbreviation']).to.eql(\"US\");  ",
+							"});",
+							"",
+							"pm.test(\"Validate place name\", () => {  ",
+							"pm.expect(responseJson.places[0]['place name']).to.eql(\"Beverly Hills\");  ",
+							"});",
+							"",
+							"pm.test(\"Validate place longitude\", () => {  ",
+							"pm.expect(responseJson.places[0].longitude).to.eql(\"-118.4065\");  ",
+							"});",
+							"",
+							"pm.test(\"Validate place state\", () => {  ",
+							"pm.expect(responseJson.places[0].state).to.eql(\"California\");  ",
+							"});",
+							"",
+							"pm.test(\"Validate place state abbreviation\", () => {  ",
+							"pm.expect(responseJson.places[0]['state abbreviation']).to.eql(\"CA\");  ",
+							"});",
+							"",
+							"pm.test(\"Validate place latitude\", () => {  ",
+							"pm.expect(responseJson.places[0].latitude).to.eql(\"34.0901\");  ",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "api.zippopotam.us/{{country}}/{{zipcode}}",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"{{country}}",
+						"{{zipcode}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

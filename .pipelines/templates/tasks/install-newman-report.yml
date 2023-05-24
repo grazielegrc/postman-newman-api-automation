@@ -1,0 +1,7 @@
+steps:
+- task: Npm@1
+  displayName: Install Newman report
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: install -g newman-reporter-htmlextra

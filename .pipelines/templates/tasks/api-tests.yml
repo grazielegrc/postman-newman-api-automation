@@ -1,0 +1,25 @@
+parameters:
+  - name: executionCommand
+    type: string
+
+steps:
+- template: install-newman-report.yml
+    
+- ${{ if startsWith(parameters.executionCommand, 'newman run') }}:
+  - template: install-newman.yml
+  - task: CmdLine@2
+    displayName: Run API tests from collections
+    inputs:    
+      script: ${{ parameters.executionCommand }} --reporters cli,junit,htmlextra --reporter-junit-export junitReport.xml
+      failOnStderr: true
+  - template: publish-test-results.yml
+
+- ${{ if startsWith(parameters.executionCommand, 'newman-run') }}:
+  - template: install-newman-run.yml  
+  - task: CmdLine@2
+    displayName: Run API tests from feeds
+    inputs:    
+      script: ${{ parameters.executionCommand }}
+      failOnStderr: true
+      
+- template: upload-postman-report.yml

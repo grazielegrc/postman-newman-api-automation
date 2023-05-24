@@ -1,0 +1,10 @@
+parameters:
+  - name: executionCommand
+    type: string
+
+steps:
+- task: CmdLine@2
+  displayName: Run "Via Cep" scheduled tests
+  inputs:    
+    script: ${{ parameters.executionCommand }} run projects/viacep/viacep.postman_collection.json -e projects/viacep/viacep.postman_env.json --reporters cli,junit,htmlextra --reporter-junit-export junitReport.xml
+    failOnStderr: true

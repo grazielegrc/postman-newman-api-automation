@@ -1,0 +1,7 @@
+steps:
+- task: UploadPostmanHtmlReport@1
+  displayName: Upload Postman html report
+  condition: succeededOrFailed()
+  inputs:
+    cwd: '$(System.DefaultWorkingDirectory)/newman'
+    tabName: 'Postman report'
