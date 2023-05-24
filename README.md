@@ -2,7 +2,7 @@
 This project have been created in order to demonstrate API tests automation using Postman collections and Newman as test runner. Besides that, there is an example using templates to create Azure pipelines including schedulers triggers.
 
 # Pre-requisites
-- [Node](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/)
 
 # How to run locally
 ## Installation
